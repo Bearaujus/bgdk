@@ -1,16 +1,18 @@
 # WORKER
 
 **worker** can execute many jobs asynchronously. This worker can also do retries and can use a custom error handler when the job function occurs error
-
-# MOCKING
-
+- Import
+```go
+import "github.com/bearaujus/bgdk/worker"
+```
+- Mocking
 ```shell
 mockgen -source={source_path}/github.com/bearaujus/bgdk/worker/init.go -destination={destination_path}/worker_mock.go
 ```
 
 # HOW TO USE
 
-### Basic Usage
+> ### Basic Usage
 ```go
 package main
 
@@ -58,8 +60,9 @@ func main() {
 [21:43:53] idx: 9
 [21:43:54] idx: 5
 ```
+&nbsp;
 
-### Worker With Error Listener
+> ### Worker With Error Listener
 ```go
 package main
 
@@ -123,8 +126,9 @@ err at idx 6
 err at idx 10
 err at idx 2
 ```
+&nbsp;
 
-### Gracefully Shutdown The Worker
+> ### Gracefully Shutdown The Worker
 ```go
 package main
 
@@ -169,7 +173,3 @@ func main() {
 [22:15:10] idx: 2
 [22:15:11] idx: 3
 ```
-
-# INSTALLATION
-
-See [https://github.com/bearaujus/bgdk](https://github.com/bearaujus/bgdk)
