@@ -16,7 +16,7 @@ go get "github.com/bearaujus/bgdk"
 > ### [WORKER](https://github.com/bearaujus/bgdk/tree/master/worker)
 **worker** can execute many jobs asynchronously. This worker can also do retries and can use a custom error handler when the job function occurs error
 
-See [Documentation](https://github.com/bearaujus/bgdk/tree/master/worker)
+See [Documentation](https://github.com/bearaujus/bgdk/tree/master/worker#documentation)
 
 # TODO
 
