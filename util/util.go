@@ -15,6 +15,7 @@ func (u *util) WriteMarshalJSON(destPath string, v interface{}, prettyFormat boo
 			return err
 		}
 
+		// write the formatted encoded json to the destination path
 		return os.WriteFile(destPath, data, os.ModePerm)
 	}
 
