@@ -6,9 +6,13 @@ But I think this repository can help many developers to work, so I decided to ma
 My goal in creating this repository is to make development easier when mocking and testing several projects that implement the **bgdk** package
 
 # INSTALLATION
-
+> Simply execute
 ```shell
 go get "github.com/bearaujus/bgdk"
+```
+> Alternatively, if you get a timeout you can try
+```shell
+GO111MODULE=on GOPROXY=direct GOSUMDB=off go get "github.com/bearaujus/bgdk"
 ```
 
 # PACKAGES
