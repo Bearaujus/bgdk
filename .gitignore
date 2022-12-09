@@ -1,9 +1,6 @@
 # work directory
 _work
 
-# example directory
-**/example
-
 # depency directory
 vendor
 
