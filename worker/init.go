@@ -2,7 +2,7 @@ package worker
 
 import "sync"
 
-// Worker is interface used by worker.
+// Worker is interface primarily used by util.
 type Worker interface {
 	// PushJob is used to push errorless job to the worker.
 	PushJob(job func())
@@ -21,7 +21,7 @@ type Worker interface {
 	GracefulShutdown()
 }
 
-// worker is a struct to implement Worker interface.
+// worker is a struct to implement the Worker interface.
 type worker struct {
 	numWorker    int
 	jobChannel   chan func() error
