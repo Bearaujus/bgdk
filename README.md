@@ -10,16 +10,16 @@ to help developers easy to understand the context of each package.
 
 # INSTALLATION
 
-- Installation
+- Get latest `gbdk` stable version
 
 ```shell
-go get "github.com/bearaujus/bgdk"
+go get "github.com/bearaujus/bgdk@v1.0.0"
 ```
 
 - Alternatively, if got a timeout you can try
 
 ```shell
-GO111MODULE=on GOPROXY=direct GOSUMDB=off go get "github.com/bearaujus/bgdk"
+GO111MODULE=on GOPROXY=direct GOSUMDB=off go get "github.com/bearaujus/bgdk@v1.0.0"
 ```
 
 # PACKAGES
