@@ -22,6 +22,8 @@ to listen to the job when the job occurs an error.
 
 > ### [UTIL](https://github.com/bearaujus/bgdk/tree/master/util)
 
+`util` is an `bgdk` utilities packages.
+
 - [UTIL/JSON](https://github.com/bearaujus/bgdk/tree/master/util/json)
 
 `utilJSON` is utilities for the JSON files. `utilJSON` implementing core functions from [encoding/json](https://cs.opensource.google/go/go/+/master:/src/encoding/json/).
