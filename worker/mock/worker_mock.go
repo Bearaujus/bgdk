@@ -33,20 +33,8 @@ func (m *MockWorker) EXPECT() *MockWorkerMockRecorder {
 	return m.recorder
 }
 
-// GracefulShutdown mocks base method.
-func (m *MockWorker) GracefulShutdown() {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "GracefulShutdown")
-}
-
-// GracefulShutdown indicates an expected call of GracefulShutdown.
-func (mr *MockWorkerMockRecorder) GracefulShutdown() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GracefulShutdown", reflect.TypeOf((*MockWorker)(nil).GracefulShutdown))
-}
-
 // PushJob mocks base method.
-func (m *MockWorker) PushJob(job func()) {
+func (m *MockWorker) PushJob(job func() error) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "PushJob", job)
 }
@@ -57,16 +45,16 @@ func (mr *MockWorkerMockRecorder) PushJob(job interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PushJob", reflect.TypeOf((*MockWorker)(nil).PushJob), job)
 }
 
-// PushJobWithError mocks base method.
-func (m *MockWorker) PushJobWithError(job func() error) {
+// Shutdown mocks base method.
+func (m *MockWorker) Shutdown() {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "PushJobWithError", job)
+	m.ctrl.Call(m, "Shutdown")
 }
 
-// PushJobWithError indicates an expected call of PushJobWithError.
-func (mr *MockWorkerMockRecorder) PushJobWithError(job interface{}) *gomock.Call {
+// Shutdown indicates an expected call of Shutdown.
+func (mr *MockWorkerMockRecorder) Shutdown() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PushJobWithError", reflect.TypeOf((*MockWorker)(nil).PushJobWithError), job)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Shutdown", reflect.TypeOf((*MockWorker)(nil).Shutdown))
 }
 
 // Wait mocks base method.

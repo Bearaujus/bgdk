@@ -1,11 +1,11 @@
-mock:
-	mockgen -source=worker/init.go -destination=worker/worker.mock/mock.go -package=mockWorker
-	mockgen -source=util/init.go -destination=util/util.mock/mock.go -package=mockUtil
+# create mock files for packages
+generate-mock:
+	mockgen -source=util/json/init.go -destination=util/json/mock/json_mock.go -package=mockUtilJSON
+	mockgen -source=util/yaml/init.go -destination=util/yaml/mock/yaml_mock.go -package=mockUtilYAML
+	mockgen -source=worker/init.go -destination=worker/mock/worker_mock.go -package=mockWorker
 
-# tidy repository
-tidy:
-	@go mod tidy
-
-# reload .gitignore cache
-reload:
-	@git rm -rf --cached .
+# remove mock files from packages
+remove-mock:
+	@rm -rf util/json/mock
+	@rm -rf util/yaml/mock
+	@rm -rf worker/mock

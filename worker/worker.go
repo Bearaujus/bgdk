@@ -1,21 +1,13 @@
 package worker
 
-func (w *worker) PushJob(job func()) {
-	// convert job to the func() error and call PushJobWithError
-	w.PushJobWithError(func() error {
-		job()
-		return nil
-	})
-}
-
-func (w *worker) PushJobWithError(job func() error) {
+func (w *worker) PushJob(job func() error) {
 	// if the worker instance is dead, the job is not executed
 	if w.isDead {
 		return
 	}
 
 	// assign the job to the job channel
-	w.wg.Add(1)
+	w.waitGroup.Add(1)
 	go func() {
 		w.jobChannel <- job
 	}()
@@ -24,23 +16,23 @@ func (w *worker) PushJobWithError(job func() error) {
 func (w *worker) Wait() {
 	// if the worker instance is not dead, wait for all workers to finish all jobs in the job channel
 	if !w.isDead {
-		w.wg.Wait()
+		w.waitGroup.Wait()
 	}
 }
 
-func (w *worker) GracefulShutdown() {
+func (w *worker) Shutdown() {
 	// if the worker instance is not dead, shutdown the worker instance
 	if !w.isDead {
-		// give dead signal to the worker to prevent PushJob and PushJobWithError pushing jobs to the job channel
+		// set worker instance as dead instance to the worker to prevent PushJob pushing jobs to the job channel
 		w.isDead = true
 
 		// wait for all workers to finish all jobs in the job channel
-		w.wg.Wait()
+		w.waitGroup.Wait()
 
-		// gracefully close job channel and stop job listener
+		// close job channel and stop all listenJobChannel iteration
 		close(w.jobChannel)
 
-		// gracefully close error channel and stop error listener
+		// if error channel is not nil, close error channel and stop listenErrorChannel iteration
 		if w.errorChannel != nil {
 			close(w.errorChannel)
 		}
@@ -83,31 +75,26 @@ func (w *worker) listenJobChannel() {
 
 		// if the error channel is not nil and an error occurs, send the error to the error channel
 		if w.errorChannel != nil && err != nil {
-			w.wg.Add(1)
+			w.waitGroup.Add(1)
 			w.errorChannel <- err
 		}
 
-		w.wg.Done()
+		w.waitGroup.Done()
 	}
 }
 
 func (w *worker) initListenErrorChannel() {
-	// if the listener func is invalid, then do not listen to the error channel
-	if w.listenerFunc == nil {
-		return
+	// if listener func is not nil, create and listen to the error channel
+	if w.errListenerFunc != nil {
+		w.errorChannel = make(chan error)
+		go w.listenErrorChannel()
 	}
-
-	// create error channel
-	w.errorChannel = make(chan error)
-
-	// listen to the error channel
-	go w.listenErrorChannel()
 }
 
 func (w *worker) listenErrorChannel() {
 	// listen to the error channel
 	for err := range w.errorChannel {
-		w.listenerFunc(err)
-		w.wg.Done()
+		w.errListenerFunc(err)
+		w.waitGroup.Done()
 	}
 }
