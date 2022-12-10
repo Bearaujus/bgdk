@@ -12,17 +12,8 @@ go get "github.com/bearaujus/bgdk@v1.0.0"
 
 # PACKAGES
 
-> ### [WORKER](https://github.com/bearaujus/bgdk/tree/master/worker)
-
-`worker` can execute many jobs asynchronously.
-`worker` also can do retries and use a custom error listener function
-to listen to the job when the job occurs an error.
-
-&nbsp;
-
 > ### [UTIL](https://github.com/bearaujus/bgdk/tree/master/util)
-
-`util` is an `bgdk` utilities packages.
+> `util` is an `bgdk` utilities packages.
 
 - [UTIL/JSON](https://github.com/bearaujus/bgdk/tree/master/util/json)
 
@@ -37,5 +28,10 @@ This package also has some additional I/O features such as JSON writer and JSON 
 This package also has some additional I/O features such as YAML writer and YAML reader.
 
 &nbsp;
+
+> ### [WORKER](https://github.com/bearaujus/bgdk/tree/master/worker)
+> `worker` can execute many jobs asynchronously.
+> `worker` also can do retries and use a custom error listener function
+> to listen to the job when the job occurs an error.
 
 [Back to top](#bgdk) 
