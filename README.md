@@ -10,7 +10,7 @@ to help developers easy to understand the context of each package.
 
 # INSTALLATION
 
-- Get latest `gbdk` stable version
+- Get latest `bgdk` stable version
 
 ```shell
 go get "github.com/bearaujus/bgdk@v1.0.0"
