@@ -4,98 +4,32 @@
 `worker` also can do retries and use a custom error listener function 
 to listen to the job when the job occurs an error.
 
-See [BGDK Installation](https://github.com/bearaujus/bgdk#installation)
+See [Documentation](https://github.com/bearaujus/bgdk/blob/master/worker/init.go)
 
 # IMPORT
 
-- ### Package
+- Package
 
 ```go
 import "github.com/bearaujus/bgdk/worker"
 ```
 
-- ### Mock
+- Mock
 
 ```go
 import mockWorker "github.com/bearaujus/bgdk/worker/mock"
 ```
 
-# DOCUMENTATION
-- [Root Functions](#root-functions)
-  - [NewWorker](#newworker)
-- [Interface Functions](#interface-functions)
-  - [PushJob](#pushjob)
-  - [Wait](#wait)
-  - [Shutdown](#shutdown)
-- [Examples](#examples)
-  - [Basic Usage](#basic-usage)
-  - [ErrListenerFunc](#errlistenerfunc)
-  - [Job Retries - Success](#job-retries---success)
-  - [Job Retries - Triggering ErrListenerFunc](#job-retries---triggering-errlistenerfunc)
-  - [Wait - Advanced Usage](#wait---advanced-usage)
-  - [Shutdown The Worker](#shutdown-the-worker)
+# Examples
 
-## Root Functions
+- [Basic Usage](#basic-usage)
+- [ErrListenerFunc](#errlistenerfunc)
+- [Job Retries - Success](#job-retries---success)
+- [Job Retries - Triggering ErrListenerFunc](#job-retries---triggering-errlistenerfunc)
+- [Wait - Advanced Usage](#wait---advanced-usage)
+- [Shutdown The Worker](#shutdown-the-worker)
 
-- ### NewWorker
-
-```go
-// NewWorker is used to create a new Worker.
-// numWorker is the number of workers to execute jobs synchronously (default 1).
-// maxRetries is the maximum number of retries to repeat the job if an error occurs (default 1).
-// errListenerFunc is a user custom error handling when a job occurs the error (default nil).
-//
-// After calling NewWorker, this will immediately execute listenJobChannel X times and listenErrorChannel 1 time,
-// where X is equal to numWorker. We don't need a function to start the worker,
-// since its already started when calling NewWorker.
-//
-//	w := worker.NewWorker(1, 1, func(err error) {
-//		// if the job occurs error, you can do whatever you want with the error
-//		// (ex. log them, or push the error to the db)
-//	})
-//
-// Note: if numWorker/maxRetries < default value, it will automatically adjust to the default value.
-// if errListenerFunc is nil, it will not listen to the error channel and the error channel will be not activated.
-func NewWorker(numWorker int, maxRetries int, errListenerFunc func(err error)) Worker
-```
-
-&nbsp;
-
-## Interface Functions
-
-- ### PushJob
-
-```go
-// PushJob is used to push a job to the worker. if an error occurs, it will send to the worker errListenerFunc.
-//
-// Note: if the listener is nil, the error will be dismissed.
-func (w *worker) PushJob(job func() error)
-```
-
-&nbsp;
-
-- ### Wait
-
-```go
-// Wait is used to wait for all workers to finish all jobs in the job channel.
-func (w *worker) Wait()
-```
-
-&nbsp;
-
-- ### Shutdown
-
-```go
-// Shutdown is used to wait for all workers to finish all jobs in the job channel.
-// after all jobs is finished, shutdown all workers and channels.
-func (w *worker) Shutdown()
-```
-
-&nbsp;
-
-## Examples
-
-- ### Basic Usage
+### Basic Usage
 
 ```go
 package main
@@ -138,7 +72,7 @@ func main() {
 
 &nbsp;
 
-- ### ErrListenerFunc
+### ErrListenerFunc
 
 ```go
 package main
@@ -188,7 +122,7 @@ func main() {
 
 &nbsp;
 
-- ### Job Retries - Success
+### Job Retries - Success
 
 ```go
 package main
@@ -242,7 +176,7 @@ success
 
 &nbsp;
 
-- ### Job Retries - Triggering ErrListenerFunc
+### Job Retries - Triggering ErrListenerFunc
 
 ```go
 package main
@@ -284,7 +218,7 @@ func main() {
 
 &nbsp;
 
-- ### Wait - Advanced Usage
+### Wait - Advanced Usage
 
 ```go
 package main
@@ -339,7 +273,7 @@ waiting for the second job executed...
 
 &nbsp;
 
-- ### Shutdown The Worker
+### Shutdown The Worker
 
 ```go
 package main

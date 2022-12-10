@@ -58,7 +58,7 @@ func Instance() UtilJSON {
 
 // InitTestMode will set the UtilJSON instance to mockInstance.
 //
-// Note: use this function for only testing purposes. After executing InitTestMode,
+// Note: this function for testing purposes only. After executing InitTestMode,
 // whenever your unit tests execute Instance it will call mockInstance.
 func InitTestMode(mockInstance *mockUtilJSON.MockUtilJSON) {
 	instance = mockInstance
