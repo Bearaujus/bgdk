@@ -2,7 +2,7 @@ package worker
 
 import "sync"
 
-// Worker is an interface primarily used by worker.
+// Worker is an interface primarily used by NewWorker.
 type Worker interface {
 	// PushJob is used to push a job to the worker. if an error occurs, it will send to the worker errListenerFunc.
 	//
