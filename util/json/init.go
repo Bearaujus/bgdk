@@ -1,65 +1,54 @@
-package utilJSON
+package json
 
-import mockUtilJSON "github.com/bearaujus/bgdk/util/json/mock"
+import "github.com/bearaujus/bgdk/util/json/mock"
 
-// UtilJSON is an interface primarily used by Instance.
-type UtilJSON interface {
-	// JSONMarshal is used to encode JSON data from v.
+// JSON is an interface primarily used by Instance.
+type JSON interface {
+	// Marshal is used to encode the data from v.
 	//
-	// Note: v can be a struct or ptr struct (*struct).
-	JSONMarshal(v interface{}) ([]byte, error)
+	// Note: v can be a struct or a ptr struct (*struct).
+	Marshal(v interface{}) ([]byte, error)
 
-	// JSONMarshalWrite is used to encode JSON data from v and write the encoded JSON data to destPath.
-	// if pretty is true, it will format the encoded JSON data.
+	// MarshalWrite is used to encode data from v and write the encoded data to destPath.
+	// if pretty is true, it will format the output.
 	//
-	// Note: v can be a struct or ptr struct (*struct).
-	JSONMarshalWrite(destPath string, v interface{}, pretty bool) error
+	// Note: v can be a struct or a ptr struct (*struct).
+	MarshalWrite(destPath string, v interface{}, pretty bool) error
 
-	// JSONMarshalIndent is used to encode JSON data from v and format the encoded JSON data.
+	// Unmarshal is used to store the encoded data to v.
 	//
-	// Note: v can be a struct or ptr struct (*struct).
-	JSONMarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
+	// Note: v must be a ptr struct (*struct).
+	Unmarshal(data []byte, v interface{}) error
 
-	// JSONMarshalIndentWrite is used to encode JSON data from v, format the encoded JSON data
-	// and finally write the encoded JSON data to destPath.
+	// UnmarshalRead is used to read the encoded data from srcPath and store the encoded data to v.
 	//
-	// Note: v can be a struct or ptr struct (*struct).
-	JSONMarshalIndentWrite(destPath string, v interface{}, prefix, indent string) error
-
-	// JSONUnmarshal is used to store the encoded JSON data to v.
-	//
-	// Note: v must be ptr struct (*struct).
-	JSONUnmarshal(data []byte, v interface{}) error
-
-	// JSONUnmarshalRead is used to read the encoded JSON data from srcPath and store the encoded JSON data to v.
-	//
-	// Note: v must be ptr struct (*struct).
-	JSONUnmarshalRead(srcPath string, v interface{}) error
+	// Note: v must be a ptr struct (*struct).
+	UnmarshalRead(srcPath string, v interface{}) error
 }
 
-// utilJSON is a struct to implement the UtilJSON interface.
-type utilJSON struct{}
+// json is a struct to implement the JSON interface.
+type json struct{}
 
-// instance hold the UtilJSON interface.
-var instance UtilJSON
+// instance hold the JSON interface.
+var instance JSON
 
-// Instance will return the UtilJSON interface.
+// Instance will return the JSON interface.
 //
 // Note: first time calling this function will create a new instance
-// to implement the UtilJSON interface (except if you call InitTestMode).
+// to implement the JSON interface (except if you call InitTestMode).
 // The next time this function is called, it will use the previously created instance.
-func Instance() UtilJSON {
+func Instance() JSON {
 	if instance == nil {
-		instance = &utilJSON{}
+		instance = &json{}
 	}
 
 	return instance
 }
 
-// InitTestMode will set the UtilJSON instance to mockInstance.
+// InitTestMode will set the JSON instance to mockInstance.
 //
 // Note: this function for testing purposes only. After executing InitTestMode,
 // whenever your unit tests execute Instance it will call mockInstance.
-func InitTestMode(mockInstance *mockUtilJSON.MockUtilJSON) {
+func InitTestMode(mockInstance *mock.MockJSON) {
 	instance = mockInstance
 }

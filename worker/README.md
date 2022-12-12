@@ -1,7 +1,7 @@
 # WORKER
 
 `worker` can execute many jobs asynchronously.
-`worker` also can do retries and use a custom error listener function 
+This package also can do retries and use a custom error listener function 
 to listen to the job when the job occurs an error.
 
 See [Documentation](https://github.com/bearaujus/bgdk/blob/master/worker/init.go)
@@ -17,7 +17,7 @@ import "github.com/bearaujus/bgdk/worker"
 - Mock
 
 ```go
-import mockWorker "github.com/bearaujus/bgdk/worker/mock"
+import "github.com/bearaujus/bgdk/worker/mock"
 ```
 
 # Examples

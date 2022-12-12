@@ -1,60 +1,43 @@
-package utilJSON
+package json
 
 import (
-	"encoding/json"
+	"bytes"
+	encodingJSON "encoding/json"
 	"os"
 )
 
-func (u *utilJSON) JSONMarshal(v interface{}) ([]byte, error) {
+func (u *json) Marshal(v interface{}) ([]byte, error) {
 	// encode the json data from v
-	return json.Marshal(v)
+	return encodingJSON.Marshal(v)
 }
 
-func (u *utilJSON) JSONMarshalWrite(destPath string, v interface{}, pretty bool) error {
+func (u *json) MarshalWrite(destPath string, v interface{}, pretty bool) error {
+	// encode the json data from v
+	data, err := encodingJSON.Marshal(v)
+	if err != nil {
+		return err
+	}
+
 	// if pretty format is true
 	if pretty {
-		// encode the json data from v and format the encoded json data
-		data, err := json.MarshalIndent(v, "", "\t")
-		if err != nil {
+		// format the encoded json data
+		buff := bytes.NewBuffer(nil)
+		if err = encodingJSON.Indent(buff, data, "", "\t"); err != nil {
 			return err
 		}
-
-		// write the formatted encoded json data to the destination path
-		return os.WriteFile(destPath, data, os.ModePerm)
-	}
-
-	// encode the json data from v
-	data, err := json.Marshal(v)
-	if err != nil {
-		return err
+		data = buff.Bytes()
 	}
 
 	// write the encoded json data to the destination path
 	return os.WriteFile(destPath, data, os.ModePerm)
 }
 
-func (u *utilJSON) JSONMarshalIndent(v interface{}, prefix, indent string) ([]byte, error) {
-	// encode the json data from v and format the encoded json data
-	return json.MarshalIndent(v, prefix, indent)
-}
-
-func (u *utilJSON) JSONMarshalIndentWrite(destPath string, v interface{}, prefix, indent string) error {
-	// encode the json data from v
-	data, err := json.MarshalIndent(v, prefix, indent)
-	if err != nil {
-		return err
-	}
-
-	// write the encoded json data to the destination path
-	return os.WriteFile(destPath, data, os.ModePerm)
-}
-
-func (u *utilJSON) JSONUnmarshal(data []byte, v interface{}) error {
+func (u *json) Unmarshal(data []byte, v interface{}) error {
 	// store the encoded json data to v
-	return json.Unmarshal(data, v)
+	return encodingJSON.Unmarshal(data, v)
 }
 
-func (u *utilJSON) JSONUnmarshalRead(srcPath string, v interface{}) error {
+func (u *json) UnmarshalRead(srcPath string, v interface{}) error {
 	// read the encoded json data from the source path
 	data, err := os.ReadFile(srcPath)
 	if err != nil {
@@ -62,5 +45,5 @@ func (u *utilJSON) JSONUnmarshalRead(srcPath string, v interface{}) error {
 	}
 
 	// store the encoded json data to v
-	return json.Unmarshal(data, v)
+	return encodingJSON.Unmarshal(data, v)
 }

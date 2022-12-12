@@ -1,53 +1,53 @@
-package utilYAML
+package yaml
 
-import mockUtilYAML "github.com/bearaujus/bgdk/util/yaml/mock"
+import "github.com/bearaujus/bgdk/util/yaml/mock"
 
-// UtilYAML is an interface primarily used by Instance.
-type UtilYAML interface {
-	// YAMLMarshal is used to encode YAML data from v.
+// YAML is an interface primarily used by Instance.
+type YAML interface {
+	// Marshal is used to encode the data from v.
 	//
-	// Note: v can be a struct or ptr struct (*struct).
-	YAMLMarshal(v interface{}) ([]byte, error)
+	// Note: v can be a struct or a ptr struct (*struct).
+	Marshal(v interface{}) ([]byte, error)
 
-	// YAMLMarshalWrite is used to encode YAML data from v and write the encoded YAML data to destPath.
+	// MarshalWrite is used to encode data from v and write the encoded data to destPath.
 	//
-	// Note: v can be a struct or ptr struct (*struct).
-	YAMLMarshalWrite(destPath string, v interface{}) error
+	// Note: v can be a struct or a ptr struct (*struct).
+	MarshalWrite(destPath string, v interface{}) error
 
-	// YAMLUnmarshal is used to store the encoded YAML data to v.
+	// Unmarshal is used to store the encoded data to v.
 	//
-	// Note: v must be ptr struct (*struct).
-	YAMLUnmarshal(data []byte, v interface{}) error
+	// Note: v must be a ptr struct (*struct).
+	Unmarshal(data []byte, v interface{}) error
 
-	// YAMLUnmarshalRead is used to read the encoded YAML data from srcPath and store the encoded YAML data to v.
+	// UnmarshalRead is used to read the encoded data from srcPath and store the encoded data to v.
 	//
-	// Note: v must be ptr struct (*struct).
-	YAMLUnmarshalRead(srcPath string, v interface{}) error
+	// Note: v must be a ptr struct (*struct).
+	UnmarshalRead(srcPath string, v interface{}) error
 }
 
-// utilYAML is a struct to implement the UtilYAML interface.
-type utilYAML struct{}
+// yaml is a struct to implement the YAML interface.
+type yaml struct{}
 
-// instance hold the UtilYAML interface.
-var instance UtilYAML
+// instance hold the YAML interface.
+var instance YAML
 
-// Instance will return the UtilYAML interface.
+// Instance will return the YAML interface.
 //
 // Note: first time calling this function will create a new instance
-// to implement the UtilYAML interface (except if you call InitTestMode).
+// to implement the YAML interface (except if you call InitTestMode).
 // The next time this function is called, it will use the previously created instance.
-func Instance() UtilYAML {
+func Instance() YAML {
 	if instance == nil {
-		instance = &utilYAML{}
+		instance = &yaml{}
 	}
 
 	return instance
 }
 
-// InitTestMode will set the UtilYAML instance to mockInstance.
+// InitTestMode will set the YAML instance to mockInstance.
 //
 // Note: this function for testing purposes only. After executing InitTestMode,
 // whenever your unit tests execute Instance it will call mockInstance.
-func InitTestMode(mockInstance *mockUtilYAML.MockUtilYAML) {
+func InitTestMode(mockInstance *mock.MockYAML) {
 	instance = mockInstance
 }
