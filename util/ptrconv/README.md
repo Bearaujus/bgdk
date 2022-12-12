@@ -1,6 +1,7 @@
 # UTIL/PTRCONV
 
 `ptrconv` is utilities for converting an object to object ptr (*object) and vice versa.
+This package also can handle nil ptr object (*object) conversion.
 
 See [Documentation](https://github.com/bearaujus/bgdk/blob/master/util/ptrconv/init.go)
 

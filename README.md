@@ -38,7 +38,8 @@ This package also has some additional I/O features such as YAML writer and YAML 
 
 - [UTIL/PTRCONV](https://github.com/bearaujus/bgdk/tree/master/util/ptrconv)
 
-`ptrconv` is utilities for converting an object to object ptr (*object) and vice versa.
+`ptrconv` is utilities for converting an object to object ptr (*object) and vice versa. 
+This package also can handle nil ptr object (*object) conversion.
 
 &nbsp;
 
