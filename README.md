@@ -7,7 +7,7 @@ with the main aim is making the development easier and testable.
 
 
 ```shell
-go get "github.com/bearaujus/bgdk@v1.0.0"
+go get "github.com/bearaujus/bgdk@v1.0.1"
 ```
 
 # PACKAGES
